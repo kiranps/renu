@@ -1,0 +1,55 @@
+{
+  "name": "renu",
+  "version": "0.0.0",
+  "description": "My Project",
+  "esy": {
+    "build": "dune build -p <PACKAGE_NAME>",
+    "buildDev": "pesy",
+    "release": {
+      "releasedBinaries": [
+        "RenuApp.exe"
+      ]
+    }
+  },
+  "buildDirs": {
+    "test": {
+      "require": [
+        "renu.lib"
+      ],
+      "main": "TestRenu",
+      "name": "TestRenu.exe"
+    },
+    "library": {
+      "name": "renu.lib",
+      "require": [
+        "lwt",
+        "lambda-term",
+        "flex"
+      ]
+    },
+    "executable": {
+      "require": [
+        "renu.lib"
+      ],
+      "main": "RenuApp",
+      "name": "RenuApp.exe"
+    }
+  },
+  "scripts": {
+    "pesy": "bash -c 'env PESY_MODE=update pesy'",
+    "test": "esy x TestRenu.exe"
+  },
+  "dependencies": {
+    "@esy-ocaml/reason": "*",
+    "@opam/dune": ">=1.6.0",
+    "@opam/lambda-term": "3.1.0",
+    "flex": "^1.2.3",
+    "ocaml": "^4.4.0"
+  },
+  "devDependencies": {
+    "ocaml": "4.7.1004",
+    "refmterr": "*",
+    "pesy": "*",
+    "@opam/merlin": "*"
+  }
+}
