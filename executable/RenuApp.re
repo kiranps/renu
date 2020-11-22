@@ -11,6 +11,9 @@ module ThreeBox = {
       <Div> {str("five")} </Div>
       <Div> {str("seventeen")} </Div>
       <Div> {str("hundred")} </Div>
+      <Div> {str("hundred")} </Div>
+      <Div> {str("hundred")} </Div>
+      <Div> {str("hundred")} </Div>
     </Div>;
 };
 

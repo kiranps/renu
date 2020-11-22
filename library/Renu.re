@@ -1,5 +1,6 @@
 module LtermHelper = LtermHelper;
 module Render = Render;
+module Draw = Draw;
 
 open Flex;
 module Encoding = FixedEncoding;

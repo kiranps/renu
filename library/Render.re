@@ -4,7 +4,7 @@ open LtermHelper;
 open Draw;
 
 let div = (style, ~children=[], term) => {
-  draw_rect(term, style);
+  draw_rect(term, style, ());
   List.iter(item => item(term), children);
 };
 

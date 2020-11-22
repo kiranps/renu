@@ -12,13 +12,15 @@
     }
   },
   "buildDirs": {
-    "test": {
-      "require": [
-        "renu.lib"
-      ],
-      "main": "TestRenu",
-      "name": "TestRenu.exe"
-    },
+    "test": [
+      {
+        "require": [
+          "renu.lib"
+        ],
+        "main": "TestRenu",
+        "name": "TestRenu.exe"
+      }
+    ],
     "library": {
       "name": "renu.lib",
       "require": [
@@ -33,6 +35,13 @@
       ],
       "main": "RenuApp",
       "name": "RenuApp.exe"
+    },
+    "examples": {
+      "require": [
+        "renu.lib"
+      ],
+      "main": "RenuSam",
+      "name": "RenuSam.exe"
     }
   },
   "scripts": {
