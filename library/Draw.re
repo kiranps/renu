@@ -1,6 +1,7 @@
-open LtermHelper;
+open Types;
 open LTerm_style;
 open LTerm_draw;
+open Style;
 
 let unsafe_get = (matrix, line, column) =>
   Array.unsafe_get(Array.unsafe_get(matrix, line), column);
@@ -33,11 +34,7 @@ let draw_rect = (term, dimensions, ~style=?, ()) => {
 };
 
 let drawRect =
-    (
-      layout: LtermHelper.LayoutSupport.LayoutTypes.cssLayout,
-      parentLayout,
-      term,
-    ) => {
+    (layout: Style.LayoutSupport.LayoutTypes.cssLayout, parentLayout, term) => {
   let style = {
     x: layout.top + parentLayout.tx,
     y: layout.left + parentLayout.ty,

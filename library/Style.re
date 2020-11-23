@@ -13,34 +13,12 @@ module LayoutTypes = LayoutSupport.LayoutTypes;
 open LayoutSupport.LayoutTypes;
 open LTerm_widget;
 
-type dim = {
-  x: int,
-  y: int,
-  height: int,
-  width: int,
-};
-
-type position = {
-  tx: int,
-  ty: int,
-};
-
 type style = LayoutTypes.cssStyle;
-
-type element =
-  | String(string)
-  | View;
-
-type node =
-  | Builtin(element, list(node), option(style));
-
-module Div = {
-  let createElement = (~children=[], ~style=?, ()) =>
-    Builtin(View, children, style);
-};
 
 let style =
     (
+      ~flex=Encoding.cssUndefined,
+      ~width=Encoding.cssUndefined,
       ~height=Encoding.cssUndefined,
       ~padding=Encoding.cssUndefined,
       ~flexDirection=LayoutTypes.Row,
@@ -50,7 +28,9 @@ let style =
     ) => {
   let ret: style = {
     ...LayoutSupport.defaultStyle,
+    flex,
     flexDirection,
+    width,
     height,
     padding,
     marginLeft,

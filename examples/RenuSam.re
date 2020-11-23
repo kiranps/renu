@@ -1,4 +1,4 @@
-open Renu.LtermHelper;
+open Renu.Types;
 open LTerm_style;
 
 let app = term => {
@@ -16,4 +16,4 @@ let app = term => {
   Renu.Draw.draw_rect(term, dim1, ~style, ());
 };
 
-Renu.Render.render(app) |> Lwt_main.run;
+Renu.Render.create_ui(app) |> Lwt_main.run;

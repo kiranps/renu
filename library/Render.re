@@ -1,12 +1,10 @@
 open Flex;
 open Lwt;
-open LtermHelper;
+open Types;
 open Draw;
+open Style;
 
-let div = (style, ~children=[], term) => {
-  draw_rect(term, style, ());
-  List.iter(item => item(term), children);
-};
+module LayoutSupport = Style.LayoutSupport;
 
 let ctrl_c = LTerm_key.Char(CamomileLibrary.UChar.of_char('c'));
 
@@ -18,7 +16,7 @@ let rec close = ui =>
     | _ => close(ui)
   );
 
-let render = app =>
+let create_ui = app =>
   Lazy.force(LTerm.stdout)
   >>= (
     term =>
@@ -46,15 +44,15 @@ let measureText = (w, h, _, _, _, _, _) => {
   LayoutTypes.height: h,
 };
 
-let str = x => Builtin(String(x), [], None);
+let str = x => Node(Text(x), [], None);
 
 let defaultPosition = {tx: 0, ty: 0};
 
 let rec renderer = node =>
   switch (node) {
-  | Builtin(View, [child], None) =>
+  | Node(Element, [child], None) =>
     switch (child) {
-    | Builtin(String(value), _, _) =>
+    | Node(Text(value), _, _) =>
       createTextNode(
         value,
         LayoutSupport.defaultStyle,
@@ -62,11 +60,11 @@ let rec renderer = node =>
       )
     | _ => renderer(child)
     }
-  | Builtin(View, children, Some(style)) =>
+  | Node(Element, children, Some(style)) =>
     createDivNode(List.map(renderer, children), style)
-  | Builtin(View, children, None) =>
+  | Node(Element, children, None) =>
     createDivNode(List.map(renderer, children), LayoutSupport.defaultStyle)
-  | Builtin(String(value), _, _) =>
+  | Node(Text(value), _, _) =>
     createTextNode(
       value,
       LayoutSupport.defaultStyle,
@@ -74,14 +72,12 @@ let rec renderer = node =>
     )
   };
 
-let getPosition =
-    (layout: LtermHelper.LayoutSupport.LayoutTypes.cssLayout, prevPosition) => {
+let getPosition = (layout: LayoutSupport.LayoutTypes.cssLayout, prevPosition) => {
   tx: layout.top + prevPosition.tx,
   ty: layout.left + prevPosition.ty,
 };
 
-let createStyle =
-    (layout: LtermHelper.LayoutSupport.LayoutTypes.cssLayout, parentLayout) => {
+let createStyle = (layout: LayoutSupport.LayoutTypes.cssLayout, parentLayout) => {
   x: layout.top + parentLayout.tx,
   y: layout.left + parentLayout.ty,
   width: layout.width,
@@ -100,6 +96,7 @@ let rec drawTree =
     drawRect(node.layout, prevPosition, term);
   | None => drawRect(node.layout, prevPosition, term)
   };
+
   let position = getPosition(node.layout, prevPosition);
   Array.iter(n => drawTree(n, ~prevPosition=position, term), node.children);
   ();

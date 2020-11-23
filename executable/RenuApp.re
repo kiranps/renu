@@ -1,9 +1,10 @@
-open Renu.LtermHelper;
+open Renu.Types;
 open Renu.Render;
+open Renu.Style;
 
 module ThreeBox = {
   let container =
-    style(~marginTop=4, ~marginLeft=5, ~height=10, ~padding=2, ());
+    style(~flex=1, ~marginTop=0, ~marginLeft=0, ~height=10, ~padding=2, ());
 
   let createElement = (~children=[], ()) =>
     <Div style=container>
