@@ -17,9 +17,11 @@ type element =
   | Element;
 
 type node =
-  | Node(element, list(node), option(style));
+  | Node(element, list(node), style);
 
 module Div = {
-  let createElement = (~children=[], ~style=?, ()) =>
+  let createElement = (~children=[], ~style=defaultStyle, ()) =>
     Node(Element, children, style);
 };
+
+let str = x => Node(Text(x), [], defaultStyle);

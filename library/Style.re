@@ -15,6 +15,8 @@ open LTerm_widget;
 
 type style = LayoutTypes.cssStyle;
 
+let defaultStyle = LayoutSupport.defaultStyle;
+
 let style =
     (
       ~flex=Encoding.cssUndefined,

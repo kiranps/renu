@@ -10,11 +10,13 @@ open Encoding;
 open Types;
 open Render;
 open Style;
+open LayoutBuilder;
+open Painter;
 
 let create_tree = (app, term) => {
   let (ui, matrix) = term;
   let size = LTerm_ui.size(ui);
-  let body_style = Some(style(~width=size.cols, ~height=size.rows, ()));
+  let body_style = style(~width=size.cols, ~height=size.rows, ());
   let canvas = Node(Element, [app], body_style);
 
   let t1 = renderer(canvas);
